@@ -11,7 +11,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/danehans/gofish/models"
+	"github.com/vspeter/gofish/models"
 )
 
 // GetAccountReader is a Reader for the GetAccount structure.

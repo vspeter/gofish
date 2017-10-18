@@ -15,7 +15,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/danehans/gofish/models"
+	"github.com/vspeter/gofish/models"
 )
 
 // NewTestEventParams creates a new TestEventParams object

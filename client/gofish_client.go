@@ -9,7 +9,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	"github.com/danehans/gofish/client/redfish_v1"
+	"github.com/vspeter/gofish/client/redfish_v1"
 )
 
 // Default gofish HTTP client.
