@@ -81,6 +81,8 @@ Created
 */
 type PostSessionCreated struct {
 	Payload *models.Session100Session
+	AuthToken string
+
 }
 
 func (o *PostSessionCreated) Error() string {
@@ -95,6 +97,9 @@ func (o *PostSessionCreated) readResponse(response runtime.ClientResponse, consu
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
+
+	o.AuthToken = response.GetHeader("X-Auth-Token")
+
 
 	return nil
 }

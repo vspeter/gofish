@@ -81,6 +81,8 @@ type Chassis100Chassis struct {
 	// Read Only: true
 	Power *Odata400IDRef `json:"Power,omitempty"`
 
+        PowerState string `json:"PowerState,omitempty"`
+
 	// This is the SKU for this chassis.
 	// Read Only: true
 	SKU string `json:"SKU,omitempty"`

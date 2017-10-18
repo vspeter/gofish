@@ -20,7 +20,17 @@ Client for redfish v1 API
 type Client struct {
 	transport runtime.ClientTransport
 	formats   strfmt.Registry
+	AuthToken string
 }
+
+// AuthenticateRequest is ...
+func (a Client) AuthenticateRequest(req runtime.ClientRequest, reg strfmt.Registry) error {
+	if a.AuthToken != "" {
+		req.SetHeaderParam("X-Auth-Token", a.AuthToken)
+	}
+	return nil
+}
+
 
 /*
 CreateAccount creates a user with the provided information
@@ -42,6 +52,7 @@ func (a *Client) CreateAccount(params *CreateAccountParams) (*CreateAccountCreat
 		Reader:             &CreateAccountReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -70,6 +81,7 @@ func (a *Client) CreateSubscription(params *CreateSubscriptionParams) (*CreateSu
 		Reader:             &CreateSubscriptionReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -98,6 +110,7 @@ func (a *Client) DeleteEvent(params *DeleteEventParams) (*DeleteEventNoContent, 
 		Reader:             &DeleteEventReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -129,6 +142,7 @@ func (a *Client) DoBootImage(params *DoBootImageParams) (*DoBootImageAccepted, e
 		Reader:             &DoBootImageReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -157,6 +171,7 @@ func (a *Client) DoLogoutSession(params *DoLogoutSessionParams) (*DoLogoutSessio
 		Reader:             &DoLogoutSessionReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -188,6 +203,7 @@ func (a *Client) DoReset(params *DoResetParams) (*DoResetAccepted, error) {
 		Reader:             &DoResetReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -216,6 +232,7 @@ func (a *Client) EventServiceRoot(params *EventServiceRootParams) (*EventService
 		Reader:             &EventServiceRootReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -244,6 +261,7 @@ func (a *Client) GetAccount(params *GetAccountParams) (*GetAccountOK, error) {
 		Reader:             &GetAccountReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -272,6 +290,7 @@ func (a *Client) GetAccountService(params *GetAccountServiceParams) (*GetAccount
 		Reader:             &GetAccountServiceReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -300,6 +319,7 @@ func (a *Client) GetAccounts(params *GetAccountsParams) (*GetAccountsOK, error) 
 		Reader:             &GetAccountsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -331,6 +351,7 @@ func (a *Client) GetChassis(params *GetChassisParams) (*GetChassisOK, error) {
 		Reader:             &GetChassisReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -359,6 +380,7 @@ func (a *Client) GetEvent(params *GetEventParams) (*GetEventOK, error) {
 		Reader:             &GetEventReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -387,6 +409,7 @@ func (a *Client) GetEventsCollection(params *GetEventsCollectionParams) (*GetEve
 		Reader:             &GetEventsCollectionReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -415,6 +438,7 @@ func (a *Client) GetLocalEthernetInterface(params *GetLocalEthernetInterfacePara
 		Reader:             &GetLocalEthernetInterfaceReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -443,6 +467,7 @@ func (a *Client) GetManager(params *GetManagerParams) (*GetManagerOK, error) {
 		Reader:             &GetManagerReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -471,6 +496,7 @@ func (a *Client) GetManagerEthernetInterface(params *GetManagerEthernetInterface
 		Reader:             &GetManagerEthernetInterfaceReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -502,6 +528,7 @@ func (a *Client) GetPower(params *GetPowerParams) (*GetPowerOK, error) {
 		Reader:             &GetPowerReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -530,6 +557,7 @@ func (a *Client) GetRegistryFile(params *GetRegistryFileParams) (*GetRegistryFil
 		Reader:             &GetRegistryFileReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -558,6 +586,7 @@ func (a *Client) GetRegistryFileContents(params *GetRegistryFileContentsParams) 
 		Reader:             &GetRegistryFileContentsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -586,6 +615,7 @@ func (a *Client) GetRole(params *GetRoleParams) (*GetRoleOK, error) {
 		Reader:             &GetRoleReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -614,6 +644,7 @@ func (a *Client) GetSchema(params *GetSchemaParams) (*GetSchemaOK, error) {
 		Reader:             &GetSchemaReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -642,6 +673,7 @@ func (a *Client) GetSchemaContent(params *GetSchemaContentParams) (*GetSchemaCon
 		Reader:             &GetSchemaContentReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -673,6 +705,7 @@ func (a *Client) GetSelLogService(params *GetSelLogServiceParams) (*GetSelLogSer
 		Reader:             &GetSelLogServiceReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -704,6 +737,7 @@ func (a *Client) GetSelLogServiceEntry(params *GetSelLogServiceEntryParams) (*Ge
 		Reader:             &GetSelLogServiceEntryReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -735,6 +769,7 @@ func (a *Client) GetServiceRoot(params *GetServiceRootParams) (*GetServiceRootOK
 		Reader:             &GetServiceRootReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -763,6 +798,7 @@ func (a *Client) GetSessionInfo(params *GetSessionInfoParams) (*GetSessionInfoOK
 		Reader:             &GetSessionInfoReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -791,6 +827,7 @@ func (a *Client) GetSessionService(params *GetSessionServiceParams) (*GetSession
 		Reader:             &GetSessionServiceReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -819,6 +856,7 @@ func (a *Client) GetSessions(params *GetSessionsParams) (*GetSessionsOK, error) 
 		Reader:             &GetSessionsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -850,6 +888,7 @@ func (a *Client) GetSimpleStorage(params *GetSimpleStorageParams) (*GetSimpleSto
 		Reader:             &GetSimpleStorageReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -881,6 +920,7 @@ func (a *Client) GetSystem(params *GetSystemParams) (*GetSystemOK, error) {
 		Reader:             &GetSystemReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -912,6 +952,7 @@ func (a *Client) GetSystemProcessor(params *GetSystemProcessorParams) (*GetSyste
 		Reader:             &GetSystemProcessorReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -942,6 +983,7 @@ func (a *Client) GetSystemTasks(params *GetSystemTasksParams) (*GetSystemTasksOK
 		Reader:             &GetSystemTasksReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -972,6 +1014,7 @@ func (a *Client) GetTask(params *GetTaskParams) (*GetTaskOK, error) {
 		Reader:             &GetTaskReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1003,6 +1046,7 @@ func (a *Client) GetThermal(params *GetThermalParams) (*GetThermalOK, error) {
 		Reader:             &GetThermalReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1034,6 +1078,7 @@ func (a *Client) ListBootImage(params *ListBootImageParams) (*ListBootImageOK, e
 		Reader:             &ListBootImageReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1065,6 +1110,7 @@ func (a *Client) ListChassis(params *ListChassisParams) (*ListChassisOK, error) 
 		Reader:             &ListChassisReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1093,6 +1139,7 @@ func (a *Client) ListLocalEthernetInterfaces(params *ListLocalEthernetInterfaces
 		Reader:             &ListLocalEthernetInterfacesReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1124,6 +1171,7 @@ func (a *Client) ListLogService(params *ListLogServiceParams) (*ListLogServiceOK
 		Reader:             &ListLogServiceReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1152,6 +1200,7 @@ func (a *Client) ListManagerEthernetInterfaces(params *ListManagerEthernetInterf
 		Reader:             &ListManagerEthernetInterfacesReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1180,6 +1229,7 @@ func (a *Client) ListManagers(params *ListManagersParams) (*ListManagersOK, erro
 		Reader:             &ListManagersReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1208,6 +1258,7 @@ func (a *Client) ListRegistry(params *ListRegistryParams) (*ListRegistryOK, erro
 		Reader:             &ListRegistryReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1239,6 +1290,7 @@ func (a *Client) ListResetTypes(params *ListResetTypesParams) (*ListResetTypesOK
 		Reader:             &ListResetTypesReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1267,6 +1319,7 @@ func (a *Client) ListRoles(params *ListRolesParams) (*ListRolesOK, error) {
 		Reader:             &ListRolesReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1295,6 +1348,7 @@ func (a *Client) ListSchemas(params *ListSchemasParams) (*ListSchemasOK, error) 
 		Reader:             &ListSchemasReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1326,6 +1380,7 @@ func (a *Client) ListSelLogServiceEntries(params *ListSelLogServiceEntriesParams
 		Reader:             &ListSelLogServiceEntriesReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1357,6 +1412,7 @@ func (a *Client) ListSimpleStorage(params *ListSimpleStorageParams) (*ListSimple
 		Reader:             &ListSimpleStorageReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1388,6 +1444,7 @@ func (a *Client) ListSystemProcessors(params *ListSystemProcessorsParams) (*List
 		Reader:             &ListSystemProcessorsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1418,6 +1475,7 @@ func (a *Client) ListSystems(params *ListSystemsParams) (*ListSystemsOK, error) 
 		Reader:             &ListSystemsReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1448,6 +1506,7 @@ func (a *Client) ListTasks(params *ListTasksParams) (*ListTasksOK, error) {
 		Reader:             &ListTasksReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1476,6 +1535,7 @@ func (a *Client) ModifyAccount(params *ModifyAccountParams) (*ModifyAccountAccep
 		Reader:             &ModifyAccountReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1504,6 +1564,7 @@ func (a *Client) PatchManager(params *PatchManagerParams) (*PatchManagerOK, erro
 		Reader:             &PatchManagerReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1532,6 +1593,7 @@ func (a *Client) PostSession(params *PostSessionParams) (*PostSessionCreated, er
 		Reader:             &PostSessionReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1560,6 +1622,7 @@ func (a *Client) RemoveAccount(params *RemoveAccountParams) (*RemoveAccountNoCon
 		Reader:             &RemoveAccountReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1590,6 +1653,7 @@ func (a *Client) TaskServiceRoot(params *TaskServiceRootParams) (*TaskServiceRoo
 		Reader:             &TaskServiceRootReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1618,6 +1682,7 @@ func (a *Client) TestEvent(params *TestEventParams) (*TestEventAccepted, error) 
 		Reader:             &TestEventReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
@@ -1649,6 +1714,7 @@ func (a *Client) Unimplemented(params *UnimplementedParams) (*UnimplementedOK, e
 		Reader:             &UnimplementedReader{formats: a.formats},
 		Context:            params.Context,
 		Client:             params.HTTPClient,
+		AuthInfo:           a,
 	})
 	if err != nil {
 		return nil, err
