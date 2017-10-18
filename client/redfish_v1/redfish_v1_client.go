@@ -149,7 +149,7 @@ func (a *Client) DoLogoutSession(params *DoLogoutSessionParams) (*DoLogoutSessio
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "doLogoutSession",
 		Method:             "DELETE",
-		PathPattern:        "/SessionService/Sessions/{identifier}",
+		PathPattern:        "/Sessions/{identifier}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -755,7 +755,7 @@ func (a *Client) GetSessionInfo(params *GetSessionInfoParams) (*GetSessionInfoOK
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getSessionInfo",
 		Method:             "GET",
-		PathPattern:        "/SessionService/Sessions/{identifier}",
+		PathPattern:        "/Sessions/{identifier}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -811,7 +811,7 @@ func (a *Client) GetSessions(params *GetSessionsParams) (*GetSessionsOK, error) 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getSessions",
 		Method:             "GET",
-		PathPattern:        "/SessionService/Sessions",
+		PathPattern:        "/Sessions",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
@@ -1524,7 +1524,7 @@ func (a *Client) PostSession(params *PostSessionParams) (*PostSessionCreated, er
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "postSession",
 		Method:             "POST",
-		PathPattern:        "/SessionService/Sessions",
+		PathPattern:        "/Sessions",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https"},
